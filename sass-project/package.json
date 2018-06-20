@@ -1,0 +1,24 @@
+{
+  "name": "sass-project",
+  "version": "1.0.0",
+  "description": "first sass project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss": "node-sass --w  scss -o css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "swedeshna"
+  },
+  "keywords": [
+    "sass",
+    "bulma"
+  ],
+  "author": "swedeshna",
+  "license": "ISC",
+  "dependencies": {
+    "bulma": "^0.7.1",
+    "node-sass": "^4.9.0"
+  }
+}
