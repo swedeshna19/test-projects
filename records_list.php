@@ -65,7 +65,7 @@ $servername = "localhost";
                             <td><?php echo htmlspecialchars($row['gender']) ?></td>
                             <td><?php echo htmlspecialchars($row['field_created_at']) ?></td>
                             <td><a href="<?php echo 'edit.php?form_id='.$row['form_id']?>">edit</a></td>
-                            <td><a>delete</a></td>
+                            <td onclick="return confirm('Do you want to delete?')"><a href="<?php echo 'delete.php?form_id='.$row['form_id']?>">delete</a></td>
 
                         </tr>
                     <?php endwhile; ?>

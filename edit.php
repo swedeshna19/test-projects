@@ -1,48 +1,47 @@
+
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "root123";
+
+    // try {
+    //     $conn = new PDO("mysql:host=$servername;dbname=form", $username, $password);
+    //     // set the PDO error mode to exception
+    //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //     echo 'connected to database';
+       
+
+
+        
+       
+    // }
+
+  
+    // catch(PDOException $e)
+    //     {
+    //     echo "Connection failed: " . $e->getMessage();
+    //     }
+
+
+        // if(isset($_POST['update'])){
+        //   $name = $_POST['name'];
+        //   $form_id = $_POST['form_id'];
+        //   $email = $_POST['email'];
+        //   $message = $_POST['message'];
+        //   $gender = $_POST['gender'];
+        //   $sql="UPDATE form_details SET name='$name',email='$email',message='$message',gender='$gender'
+        //     WHERE form_id='$form_id'";
+        //     $q = $conn->query($sql);
+        //     $q->setFetchMode(PDO::FETCH_ASSOC);
+        //     $row = $q->fetch();
+          
+        //   echo "meta http-equiv='refresh' content='0;url=records_list.php'>";
+        // }
+      
+
+
+        //testing code
+        ?>
+
     
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=form", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo 'connected to database';
-         
-        $form_id= $_GET['form_id'];
-        $sql = "SELECT *
-        FROM form_details where form_id='$form_id'";
-       
-        $q = $conn->query($sql);
-        $q->setFetchMode(PDO::FETCH_ASSOC);
-        $row = $q->fetch();
 
-
-        if(isset($_POST['update'])){
-            $newname=$_POST['name'];
-            $newemail=$_POST['email'];
-            $newmessage=$_POST['message'];
-            $newgender=$_POST['gender'];
-            $sql="UPDATE form_details SET name='$newname',email='$newemail',message='$newmessage',gender='$newgender'
-               WHERE form_id='$form_id'";
-            $q = $conn->query($sql);
-            echo "meta http-equiv='refresh' content='0;url=dbconfig.php'>";
-  
-        }
-       
-    }
-
-  
-    catch(PDOException $e)
-        {
-        echo "Connection failed: " . $e->getMessage();
-        }
-
-        
-
-        
-
-?>
 
 
 <!DOCTYPE html>
@@ -60,14 +59,58 @@
 </head>
     <body>
     <div class="container">
-     <form method="POST" action="dbconfig.php"> 
+     <form method="POST" > 
+            
+              <?php
+              $servername = "localhost";
+              $username = "root";
+              $password = "root123";
+              $conn = new PDO("mysql:host=$servername;dbname=form", $username, $password);
+              // set the PDO error mode to exception
+              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $form_id= $_GET['form_id'];
+
+              if (isset($_POST["update"])) {
+                  $name = $_POST['name'];        
+                  $email = $_POST['email'];
+                  $message=$_POST['message'];
+                  $gender=$_POST['gender'];  
+                try {
+                  
+                  $qry= ("UPDATE form_details SET name='$name', email='$email',message='$message',gender='$gender' WHERE form_id='$form_id';");
+                  $PdoResult=$conn->prepare($qry);
+                  $PdoResult->execute();
+                  echo 'record updated';  
+                  header("Location:records_list.php"); 
+
+                    }
+                catch(PDOException $e)
+                    {
+                    echo $sql . "<br>" . $e->getMessage();
+                    }
+
+                //$conn = null;
+            }
+
+            $sql = "SELECT *
+            FROM form_details where form_id='$form_id'";
+          
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $row = $q->fetch();
+
+            ?>
+
+
+
+
 
             <div class="field">
                 <label class="label ">Name</label>
                 <div class="control">
                
-                <input class="input is-primary" name="newname" type="text" id="name" value="<?php echo htmlspecialchars($row['name']);?>">
-                <input class="input is-primary" name="form_id" type="hidden" id="name" value="<?php echo htmlspecialchars($row['form_id']);?>">
+                <input class="input is-primary" name="name" type="text" id="name" value="<?php echo htmlspecialchars($row['name']);?>"/>
+                
                 
                 
                 </div>
@@ -76,7 +119,7 @@
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input is-danger" type="email" name="newemail" id="email" value="<?php echo htmlspecialchars($row['email']);?>">
+              <input class="input is-danger" type="email" name="email" id="email" value="<?php echo htmlspecialchars($row['email']);?>"/>
              
               <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
@@ -93,7 +136,7 @@
            <div class="field">
             <label class="label">Message</label>
             <div class="control">
-              <textarea class="textarea" id="message" name="newmessage"   ><?php echo htmlspecialchars($row['message']);?></textarea>
+              <textarea class="textarea" id="message" name="message"   ><?php echo htmlspecialchars($row['message']);?></textarea>
               
             </div>
           </div> 
@@ -102,17 +145,28 @@
               <div class="label">Gender</div>
             <div class="control">
               <label class="radio">
-                <input type="radio" id="gen" value="<?php echo htmlspecialchars($row['gender']) ?>" name="newgender">
-                
+              <input type="radio" name="gender" value="male" <?php echo ($gender=='male')?'checked':'' ?>/>
+                          
                 MALE
               </label>
-              <label class="radio">
-                <input type="radio" id="gen" value="<?php echo htmlspecialchars($row['gender']) ?>" name="newgender">
+
+
+              <label class="radio"> 
+                <input type="radio" name="gender" value="female" <?php echo ($gender=='female')?'checked':'' ?>/>               
                 
                 FEMALE
               </label>
             </div>
             </div>
+
+             <div class="field">
+            <div class="control">
+
+             <input class="input is-primary" name="form_id" type="hidden" id="name" value="<?php echo htmlspecialchars($row['form_id']);?>"/>
+                
+            </div>
+
+           
    
           <div class="field">
             <div class="control">
@@ -120,6 +174,11 @@
             </div>
             
           </div>
+
+
+    
+
+          
 
         
           </form>

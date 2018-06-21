@@ -13,19 +13,19 @@
 </head>
     <body>
     <div class="container">
-     <form method="POST" action="formtest.php"> 
+     <form method="POST" action="record_submit.php"> 
 
             <div class="field">
                 <label class="label ">Name</label>
                 <div class="control">
-                <input class="input is-primary" name="name"type="text" id="name" placeholder="Input Name">
+                <input class="input is-primary" name="name"type="text" id="name" placeholder="Input Name" required/>
                 </div>
             </div>
       
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input is-danger" type="email" name="email" id="email"  placeholder="Email input">
+              <input class="input is-danger" type="email" name="email" id="email"   placeholder="Email input" required/>
               <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
               </span>
@@ -49,11 +49,11 @@
               <div class="label">Gender</div>
             <div class="control">
               <label class="radio">
-                <input type="radio" id="gen" value="Male" name="gender">
+                <input type="radio" id="gen" value="male" name="gender"/>
                 MALE
               </label>
               <label class="radio">
-                <input type="radio" id="gen" value="Female" name="gender">
+                <input type="radio" id="gen" value="female" name="gender"/>
                 FEMALE
               </label>
             </div>

@@ -67,4 +67,7 @@
                         </tr>
                     
                 </tbody>
+
             </table>
+
+            <a href="records_list.php" class="button is-primary">Back</a>

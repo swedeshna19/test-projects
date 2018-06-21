@@ -11,11 +11,11 @@
     if(isset($_POST['name'])){
          echo "<br>";
          echo 'Name:';
-         $name = htmlentities($_POST['name']);
+         $name = ucwords($_POST['name']);
          echo $name;
          echo "<br>";
          echo 'Email:';
-         $email = htmlentities($_POST['email']);
+         $email = htmlentities($_POST['email'],FILTER_SANITIZE_SPECIAL_CHARS);
          echo $email;
          echo "<br>";
          echo 'Message:';
@@ -47,6 +47,7 @@
         echo '<br>';
         $sql = "INSERT INTO form_details (name, email,message,gender)
         VALUES ('$name', '$email', '$message','$gender')";
+        $conn->prepare($sql);
         // use exec() because no results are returned
         $conn->exec($sql);
         echo "New record created successfully";
@@ -80,7 +81,7 @@
 <form>
 
    
-   <a href="dbconfig.php" class="button is-primary">View Records</a>
+   <a href="records_list.php" class="button is-primary">View Records</a>
    
 
 </form>
