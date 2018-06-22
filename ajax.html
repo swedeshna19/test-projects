@@ -1,0 +1,45 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ajax</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script>
+
+        function loadDoc() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("demo").innerHTML = this.responseText;
+            }   
+        };
+        xhttp.open("GET", "http://jsonplaceholder.typicode.com/todos/1", true);
+        xhttp.send();
+        }
+        function test(){
+        var testObject={
+            userId: 1, 
+            id: 1,
+            title: "delectus aut autem", 
+            completed: false 
+        };
+
+        return console.log(test);              
+        }
+
+        
+    </script>
+
+
+</head>
+<body>
+
+
+        <button type="button" onclick="loadDoc()">Request data</button>
+        <button type="button" onclick="test()">test script</button>
+        <p id="demo"></p>
+    
+</body>
+</html>
