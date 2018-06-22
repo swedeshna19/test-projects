@@ -145,14 +145,14 @@
               <div class="label">Gender</div>
             <div class="control">
               <label class="radio">
-              <input type="radio" name="gender" value="male" <?php echo ($gender=='male')?'checked':'' ?>/>
+              <input type="radio" name="gender" value="male" <?php if($row['gender']=='male'){echo 'checked';}?>/>
                           
                 MALE
               </label>
 
 
               <label class="radio"> 
-                <input type="radio" name="gender" value="female" <?php echo ($gender=='female')?'checked':'' ?>/>               
+                <input type="radio" name="gender" value="female"  <?php if($row['gender']=='female'){echo 'checked';}?>/>               
                 
                 FEMALE
               </label>
