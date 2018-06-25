@@ -1,13 +1,9 @@
 <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "root123";
+require('dbconnect.php');
+    
     
     try {
-        $conn = new PDO("mysql:host=$servername;dbname=form", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        // echo 'connected to database';
+        
          
         $form_id = $_GET['form_id'];
         $sql = "SELECT *

@@ -1,62 +1,55 @@
 
   <?php
+        require('dbconnect.php');
 
-   if(filter_has_var(INPUT_POST,'submit')){
-       echo 'The details submitted are the following:';
+       echo 'The details submitted are the following:' . '<br>';
        
        
-   }
+
+   
+if(isset($_POST['name'])){
+    
+    echo 'Name:';
+    $name = ucwords($_POST['name']);
+    echo $name .'<br>';  
+    echo 'Email:';
+    $email = ($_POST['email']);
+    echo $email . '<br>';
+    echo "<br>";
+    echo 'Message:';
+    $message = ($_POST['message']);
+    echo $message . '<br>';
+    echo 'Gender:';
+    $gender = ($_POST['gender']);
+    echo $gender . '<br>';
+
+  
+}
    
 
-    if(isset($_POST['name'])){
-         echo "<br>";
-         echo 'Name:';
-         $name = ucwords($_POST['name']);
-         echo $name;
-         echo "<br>";
-         echo 'Email:';
-         $email = htmlentities($_POST['email'],FILTER_SANITIZE_SPECIAL_CHARS);
-         echo $email;
-         echo "<br>";
-         echo 'Message:';
-         $message = htmlentities($_POST['message']);
-         echo $message;
-         echo "<br>";
-         echo 'Gender:';
-         $gender = htmlentities($_POST['gender']);
-         echo $gender;
-
-    
-       
-    }
-
+     
     echo '<br>';
    
 
     
-    $servername = "localhost";
-    $username = "root";
-    $password = "root123";
+    
     
     try {
-        $conn = new PDO("mysql:host=$servername;dbname=form", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        echo "The Database is Connected successfully"; 
-
-        echo '<br>';
-        $sql = "INSERT INTO form_details (name, email,message,gender)
-        VALUES ('$name', '$email', '$message','$gender')";
-        $conn->prepare($sql);
-        // use exec() because no results are returned
-        $conn->exec($sql);
+        
+        $stmt = $conn->prepare("INSERT INTO form_details (name, email,message,gender)
+        VALUES (:name,:email,:message,:gender)");
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':message', $message);
+        $stmt->bindParam(':gender', $gender);
+        $stmt->execute();
+       
         echo "New record created successfully";
-      
-        }
+    }
     catch(PDOException $e)
-        {
-        echo "Connection failed: " . $e->getMessage();
-        }
+    {
+    echo "Connection insertion: " . $e->getMessage();
+    }
 
         
 

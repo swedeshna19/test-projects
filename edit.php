@@ -1,44 +1,45 @@
 
 <?php
+require('dbconnect.php');
 
-    // try {
-    //     $conn = new PDO("mysql:host=$servername;dbname=form", $username, $password);
-    //     // set the PDO error mode to exception
-    //     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    //     echo 'connected to database';
-       
+?>
 
-
-        
-       
-    // }
-
-  
-    // catch(PDOException $e)
-    //     {
-    //     echo "Connection failed: " . $e->getMessage();
-    //     }
-
-
-        // if(isset($_POST['update'])){
-        //   $name = $_POST['name'];
-        //   $form_id = $_POST['form_id'];
-        //   $email = $_POST['email'];
-        //   $message = $_POST['message'];
-        //   $gender = $_POST['gender'];
-        //   $sql="UPDATE form_details SET name='$name',email='$email',message='$message',gender='$gender'
-        //     WHERE form_id='$form_id'";
-        //     $q = $conn->query($sql);
-        //     $q->setFetchMode(PDO::FETCH_ASSOC);
-        //     $row = $q->fetch();
+<?php
+              
+           
+              $form_id= $_GET['form_id'];
+              if(isset($_POST['update'])){
+    
+                $name = ($_POST['name']);
+                $email = ($_POST['email']);
+                $message = ($_POST['message']);
+                $gender = ($_POST['gender']);
+            
+                try {
+                  $sql = "UPDATE form_details SET name = :name, email = :email,message = :message,gender=:gender WHERE form_id =:form_id ";
+                  $stmt = $conn->prepare($sql);        
+                  $stmt->bindParam(':form_id', $form_id);
+                  $stmt->bindParam(':name', $name);
+                  $stmt->bindParam(':email', $email);
+                  $stmt->bindParam(':message', $message);
+                  $stmt->bindParam(':gender',$gender);
+                
+                  $stmt->execute();
+                  header("Location:records_list.php"); 
+                }
+                catch(PDOException $e)
+                {
+                echo "Error: " . $e->getMessage();
+                }
           
-        //   echo "meta http-equiv='refresh' content='0;url=records_list.php'>";
-        // }
-      
-
-
-        //testing code
-        ?>
+              }
+            $sql = "SELECT *
+            FROM form_details where form_id='$form_id'";
+          
+            $q = $conn->query($sql);
+            $q->setFetchMode(PDO::FETCH_ASSOC);
+            $row = $q->fetch();
+            ?>
 
     
 
@@ -61,45 +62,7 @@
     <div class="container">
      <form method="POST" > 
             
-              <?php
-              $servername = "localhost";
-              $username = "root";
-              $password = "root123";
-              $conn = new PDO("mysql:host=$servername;dbname=form", $username, $password);
-              // set the PDO error mode to exception
-              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-              $form_id= $_GET['form_id'];
-
-              if (isset($_POST["update"])) {
-                  $name = $_POST['name'];        
-                  $email = $_POST['email'];
-                  $message=$_POST['message'];
-                  $gender=$_POST['gender'];  
-                try {
-                  
-                  $qry= ("UPDATE form_details SET name='$name', email='$email',message='$message',gender='$gender' WHERE form_id='$form_id';");
-                  $PdoResult=$conn->prepare($qry);
-                  $PdoResult->execute();
-                  echo 'record updated';  
-                  header("Location:records_list.php"); 
-
-                    }
-                catch(PDOException $e)
-                    {
-                    echo $sql . "<br>" . $e->getMessage();
-                    }
-
-                //$conn = null;
-            }
-
-            $sql = "SELECT *
-            FROM form_details where form_id='$form_id'";
-          
-            $q = $conn->query($sql);
-            $q->setFetchMode(PDO::FETCH_ASSOC);
-            $row = $q->fetch();
-
-            ?>
+     
 
 
 

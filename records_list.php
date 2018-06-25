@@ -1,21 +1,15 @@
 <?php
-$servername = "localhost";
-    $username = "root";
-    $password = "root123";
+    require('dbconnect.php');
+    
     
     try {
-        $conn = new PDO("mysql:host=$servername;dbname=form", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-         
-         
-
+       
         $sql = 'SELECT *
         FROM form_details';
         
-
-        $q = $conn->query($sql);
+        $q=$conn->prepare($sql);
+        $q->execute();
+       
         $q->setFetchMode(PDO::FETCH_ASSOC);
     }
 
@@ -71,6 +65,9 @@ $servername = "localhost";
                     <?php endwhile; ?>
                 </tbody>
             </table>
+            <div class="container">
+            <a href="form.php" class="button is-primary">create new form</a>
+            </div>
 
            
 

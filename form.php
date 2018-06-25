@@ -18,14 +18,16 @@
             <div class="field">
                 <label class="label ">Name</label>
                 <div class="control">
-                <input class="input is-primary" name="name"type="text" id="name" placeholder="Input Name" required/>
+                <input class="input is-primary" name="name"type="text" id="name" placeholder="Input Name" required />
+                
                 </div>
             </div>
       
           <div class="field">
             <label class="label">Email</label>
             <div class="control has-icons-left has-icons-right">
-              <input class="input is-danger" type="email" name="email" id="email"   placeholder="Email input" required/>
+              <input class="input is-danger" type="email" name="email" id="email"   placeholder="Email input" required />
+              
               <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
               </span>
@@ -41,7 +43,8 @@
            <div class="field">
             <label class="label">Message</label>
             <div class="control">
-              <textarea class="textarea" id="message" name="message"  placeholder="Textarea"></textarea>
+              <textarea class="textarea" id="message" name="message"  placeholder="Textarea"></textarea> 
+             
             </div>
           </div> 
         
@@ -55,8 +58,10 @@
               <label class="radio">
                 <input type="radio" id="gen" value="female" name="gender"/>
                 FEMALE
-              </label>
+             
             </div>
+            
+
             </div>
    
           <div class="field">
