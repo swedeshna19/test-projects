@@ -1,13 +1,9 @@
 
   <?php
 
-   if(filter_has_var(INPUT_POST,'submit')){
+  
        echo 'The details submitted are the following:';
        
-       
-   }
-   
-
     if(isset($_POST['name'])){
          echo "<br>";
          echo 'Name:';
