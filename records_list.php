@@ -6,11 +6,15 @@
        
         $sql = 'SELECT *
         FROM form_details';
+        $q=$conn->prepare($sql);
+        $q->execute();
+        $q->setFetchMode(PDO::FETCH_ASSOC);
         
         $q=$conn->prepare($sql);
         $q->execute();
        
         $q->setFetchMode(PDO::FETCH_ASSOC);
+
     }
 
   
