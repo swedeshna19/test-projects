@@ -15,15 +15,15 @@
          echo $name;
          echo "<br>";
          echo 'Email:';
-         $email = htmlentities($_POST['email'],FILTER_SANITIZE_SPECIAL_CHARS);
+         $email = ($_POST['email']);
          echo $email;
          echo "<br>";
          echo 'Message:';
-         $message = htmlentities($_POST['message']);
+         $message = ($_POST['message']);
          echo $message;
          echo "<br>";
          echo 'Gender:';
-         $gender = htmlentities($_POST['gender']);
+         $gender = ($_POST['gender']);
          echo $gender;
 
     
